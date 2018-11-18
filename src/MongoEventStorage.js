@@ -15,9 +15,9 @@ const _collection = Symbol('collection');
 function wrapObjectId(obj, key) {
 	if (!obj) throw new TypeError('obj argument required');
 	if (!key) throw new TypeError('key argument required');
-	if (typeof obj[key] === 'string' && obj[key].length === 24) {
-		obj[key] = new ObjectID(obj[key]);
-	}
+	// if (typeof obj[key] === 'string' && obj[key].length === 24) {
+	// 	obj[key] = new ObjectID(obj[key]);
+	// }
 }
 
 function wrapBinary(obj, key) {
@@ -156,10 +156,10 @@ module.exports = class MongoEventStorage {
 				if (result.n !== events.length)
 					throw new Error(`Number of affected records (${result.n}) does not match number of passed in events (${events.length})`);
 
-				events.forEach(e => {
-					e.id = e._id;
-					delete e._id;
-				});
+				// events.forEach(e => {
+				// 	e.id = e._id;
+				// 	delete e._id;
+				// });
 
 				return events;
 			}, err => {
