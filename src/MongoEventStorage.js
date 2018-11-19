@@ -16,7 +16,7 @@ function wrapObjectId(obj, key) {
 	if (!obj) throw new TypeError('obj argument required');
 	if (!key) throw new TypeError('key argument required');
 	if (typeof obj[key] === 'string' && obj[key].length === 24) {
-		obj[key] = new ObjectID(obj[key]);
+		// obj[key] = new ObjectID(obj[key]);
 	}
 }
 
@@ -151,17 +151,17 @@ module.exports = class MongoEventStorage {
 			.then(collection => collection.insert(events, { w: 1 }))
 			.then(writeResult => writeResult.result)
 			.then(result => {
-				info(result);
+
 				if (!result.ok)
 					throw new Error(`Write result is not OK: ${JSON.stringify(result)}`);
 				if (result.n !== events.length)
 					throw new Error(`Number of affected records (${result.n}) does not match number of passed in events (${events.length})`);
 
-				events.forEach(e => {
-					e.id = e._id;
-					delete e._id;
-				});
-				info(events);
+				// events.forEach(e => {
+				// 	e.id = e._id;
+				// 	delete e._id;
+				// });
+
 				return events;
 			}, err => {
 				if (err.code === 11000) {
